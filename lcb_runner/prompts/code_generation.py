@@ -6,7 +6,7 @@ except ImportError:
     HUMAN_PROMPT = None
     AI_PROMPT = None
 
-from lcb_runner.lm_styles import LMStyle
+from lcb_runner.lm_styles import LMStyle, LanguageModel
 from lcb_runner.benchmarks.code_generation import CodeGenerationProblem
 
 
@@ -204,8 +204,9 @@ def get_base_model_question_template_answer(question: CodeGenerationProblem):
 
 
 def format_prompt_generation(
-    question: CodeGenerationProblem, LanguageModelStyle: LMStyle
+    question: CodeGenerationProblem, model: LanguageModel
 ) -> str:
+    LanguageModelStyle = model.model_style
     if LanguageModelStyle in [LMStyle.OpenAIChat, LMStyle.DeepSeekAPI]:
         chat_messages = [
             {
@@ -220,6 +221,32 @@ def format_prompt_generation(
             },
         ]
         return chat_messages
+
+    if LanguageModelStyle == LMStyle.LLaMa2:
+        chat_messages = [
+            {
+                "role": "system",
+                "content": PromptConstants.SYSTEM_MESSAGE_GENERIC,
+            },
+        ]
+        chat_messages += [
+            {
+                "role": "user",
+                "content": get_generic_question_template_answer(question),
+            },
+        ]
+        from transformers import AutoTokenizer
+
+        tokenizer = AutoTokenizer.from_pretrained(
+            model.model_name, padding_side="left", use_fast=False
+        )
+        return tokenizer.apply_chat_template(
+            chat_messages,
+            tokenize=False,
+            add_generation_prompt=True,
+            truncation=False,
+            padding=False,
+        )
 
     if LanguageModelStyle == LMStyle.LLaMa3:
         chat_messages = [
@@ -237,7 +264,7 @@ def format_prompt_generation(
         from transformers import AutoTokenizer
 
         tokenizer = AutoTokenizer.from_pretrained(
-            "meta-llama/Meta-Llama-3-8B-Instruct", padding_side="left", use_fast=False
+            model.model_name, padding_side="left", use_fast=False
         )
         return tokenizer.apply_chat_template(
             chat_messages,
@@ -349,7 +376,59 @@ def format_prompt_generation(
     ):
         prompt = f"{get_qwen_question_template_answer(question)}"
         return prompt
+    
+    if LanguageModelStyle == LMStyle.Mistral:
+        chat_messages = [
+            {
+                "role": "system",
+                "content": PromptConstants.SYSTEM_MESSAGE_GENERIC,
+            },
+        ]
+        chat_messages += [
+            {
+                "role": "user",
+                "content": get_generic_question_template_answer(question),
+            },
+        ]
+        from transformers import AutoTokenizer
 
+        tokenizer = AutoTokenizer.from_pretrained(
+            model.model_name, padding_side="left", use_fast=False
+        )
+        return tokenizer.apply_chat_template(
+            chat_messages,
+            tokenize=False,
+            add_generation_prompt=True,
+            truncation=False,
+            padding=False,
+        )
+
+    if LanguageModelStyle == LMStyle.Yi:
+        chat_messages = [
+            {
+                "role": "system",
+                "content": PromptConstants.SYSTEM_MESSAGE_GENERIC,
+            },
+        ]
+        chat_messages += [
+            {
+                "role": "user",
+                "content": get_generic_question_template_answer(question),
+            },
+        ]
+        from transformers import AutoTokenizer
+
+        tokenizer = AutoTokenizer.from_pretrained(
+            model.model_name, padding_side="left", use_fast=False
+        )
+        return tokenizer.apply_chat_template(
+            chat_messages,
+            tokenize=False,
+            add_generation_prompt=True,
+            truncation=False,
+            padding=False,
+        )
+    
     if LanguageModelStyle == LMStyle.GenericBase:
         prompt = get_base_model_question_template_answer(question)
         return prompt
