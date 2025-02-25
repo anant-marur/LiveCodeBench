@@ -29,7 +29,10 @@ class LMStyle(Enum):
     Qwen1point5 = "Qwen1point5"
     Smaug2 = "Smaug2"
 
+    LLaMa2 = "LLaMa2"
     LLaMa3 = "LLaMa3"
+    Mistral = "Mistral"
+    Yi = "Yi"
 
 
 @dataclass
@@ -45,6 +48,27 @@ class LanguageModel:
 
 
 LanguageModelList: list[LanguageModel] = [
+    LanguageModel(
+        "meta-llama/Llama-2-7b-chat-hf",
+        "Llama-2-7b-chat",
+        LMStyle.LLaMa2,
+        datetime(2023, 1, 1),
+        link="https://huggingface.co/meta-llama/Llama-2-7b-chat-hf",
+    ),
+    LanguageModel(
+        "meta-llama/Llama-2-13b-chat-hf",
+        "Llama-2-13b-chat",
+        LMStyle.LLaMa2,
+        datetime(2023, 1, 1),
+        link="https://huggingface.co/meta-llama/Llama-2-13b-chat-hf",
+    ),
+    LanguageModel(
+        "meta-llama/Llama-2-70b-chat-hf",
+        "Llama-2-70b-chat",
+        LMStyle.LLaMa2,
+        datetime(2023, 1, 1),
+        link="https://huggingface.co/meta-llama/Llama-2-70b-chat-hf",
+    ),
     LanguageModel(
         "meta-llama/Meta-Llama-3-70B",
         "LLama3-70b-Base",
@@ -172,60 +196,60 @@ LanguageModelList: list[LanguageModel] = [
         link="https://huggingface.co/deepseek-ai/DeepSeek-V2",
     ),
     LanguageModel(
-        "codellama/CodeLlama-70b-hf",
+        "meta-llama/CodeLlama-70b-hf",
         "CodeLlama-70b-Base",
         LMStyle.GenericBase,
         datetime(2023, 1, 1),
-        link="https://huggingface.co/codellama/CodeLlama-70b-hf",
+        link="https://huggingface.co/meta-llama/CodeLlama-70b-hf",
     ),
     LanguageModel(
-        "codellama/CodeLlama-34b-hf",
+        "meta-llama/CodeLlama-34b-hf",
         "CodeLlama-34b-Base",
         LMStyle.GenericBase,
         datetime(2023, 1, 1),
-        link="https://huggingface.co/codellama/CodeLlama-34b-hf",
+        link="https://huggingface.co/meta-llama/CodeLlama-34b-hf",
     ),
     LanguageModel(
-        "codellama/CodeLlama-13b-hf",
+        "meta-llama/CodeLlama-13b-hf",
         "CodeLlama-13b-Base",
         LMStyle.GenericBase,
         datetime(2023, 1, 1),
-        link="https://huggingface.co/codellama/CodeLlama-13b-hf",
+        link="https://huggingface.co/meta-llama/CodeLlama-13b-hf",
     ),
     LanguageModel(
-        "codellama/CodeLlama-7b-hf",
+        "meta-llama/CodeLlama-7b-hf",
         "CodeLlama-7b-Base",
         LMStyle.GenericBase,
         datetime(2023, 1, 1),
-        link="https://huggingface.co/codellama/CodeLlama-7b-hf",
+        link="https://huggingface.co/meta-llama/CodeLlama-7b-hf",
     ),
     LanguageModel(
-        "codellama/CodeLlama-70b-Instruct-hf",
+        "meta-llama/CodeLlama-70b-Instruct-hf",
         "CodeLlama-70b-Ins",
         LMStyle.CodeLLaMaInstruct,
         datetime(2023, 1, 1),
-        link="https://huggingface.co/codellama/CodeLlama-70b-hf",
+        link="https://huggingface.co/meta-llama/CodeLlama-70b-hf",
     ),
     LanguageModel(
-        "codellama/CodeLlama-34b-Instruct-hf",
+        "meta-llama/CodeLlama-34b-Instruct-hf",
         "CodeLlama-34b-Ins",
         LMStyle.CodeLLaMaInstruct,
         datetime(2023, 1, 1),
-        link="https://huggingface.co/codellama/CodeLlama-34b-Instruct-hf",
+        link="https://huggingface.co/meta-llama/CodeLlama-34b-Instruct-hf",
     ),
     LanguageModel(
-        "codellama/CodeLlama-13b-Instruct-hf",
+        "meta-llama/CodeLlama-13b-Instruct-hf",
         "CodeLlama-13b-Ins",
         LMStyle.CodeLLaMaInstruct,
         datetime(2023, 1, 1),
-        link="https://huggingface.co/codellama/CodeLlama-13b-Instruct-hf",
+        link="https://huggingface.co/meta-llama/CodeLlama-13b-Instruct-hf",
     ),
     LanguageModel(
-        "codellama/CodeLlama-7b-Instruct-hf",
+        "meta-llama/CodeLlama-7b-Instruct-hf",
         "CodeLlama-7b-Ins",
         LMStyle.CodeLLaMaInstruct,
         datetime(2023, 1, 1),
-        link="https://huggingface.co/codellama/CodeLlama-7b-Instruct-hf",
+        link="https://huggingface.co/meta-llama/CodeLlama-7b-Instruct-hf",
     ),
     LanguageModel(
         "gpt-3.5-turbo-0301",
@@ -408,6 +432,62 @@ LanguageModelList: list[LanguageModel] = [
         LMStyle.GenericBase,
         datetime(2023, 1, 1),
         link="https://huggingface.co/google/gemma-2b",
+    ),
+    LanguageModel(
+        "mistralai/Mistral-7B-Instruct-v0.1",
+        "Mistral-7b-Ins-v0.1",
+        LMStyle.Mistral,
+        datetime(2023, 1, 1),
+        link="https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1",
+    ),
+    LanguageModel(
+        "mistralai/Mistral-7B-Instruct-v0.2",
+        "Mistral-7b-Ins-v0.2",
+        LMStyle.Mistral,
+        datetime(2023, 1, 1),
+        link="https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2",
+    ),
+    LanguageModel(
+        "mistralai/Mistral-7B-Instruct-v0.3",
+        "Mistral-7b-Ins-v0.3",
+        LMStyle.Mistral,
+        datetime(2023, 1, 1),
+        link="https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3",
+    ),
+    LanguageModel(
+        "mistralai/Mixtral-8x7B-Instruct-v0.1",
+        "Mistral-8x7B-Ins-v0.1",
+        LMStyle.Mistral,
+        datetime(2023, 1, 1),
+        link="https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1",
+    ),
+    LanguageModel(
+        "mistralai/Mixtral-8x22B-Instruct-v0.1",
+        "Mistral-8x22B-Ins-v0.1",
+        LMStyle.Mistral,
+        datetime(2023, 1, 1),
+        link="https://huggingface.co/mistralai/Mixtral-8x22B-Instruct-v0.1",
+    ),
+    LanguageModel(
+        "mistralai/Mistral-Nemo-Instruct-2407",
+        "Mistral-Nemo-Ins-2407",
+        LMStyle.Mistral,
+        datetime(2023, 1, 1),
+        link="https://huggingface.co/mistralai/Mistral-Nemo-Instruct-2407",
+    ),
+    LanguageModel(
+        "mistralai/Mistral-Large-Instruct-2407",
+        "Mistral-Large-Ins-2407",
+        LMStyle.Mistral,
+        datetime(2023, 1, 1),
+        link="https://huggingface.co/mistralai/Mistral-Large-Instruct-2407",
+    ),
+    LanguageModel(
+        "mistralai/Codestral-22B-v0.1",
+        "Codestral-22B-v0.1",
+        LMStyle.Mistral,
+        datetime(2023, 1, 1),
+        link="https://huggingface.co/mistralai/Codestral-22B-v0.1",
     ),
     LanguageModel(
         "mistral-large-latest",
@@ -597,6 +677,27 @@ LanguageModelList: list[LanguageModel] = [
         LMStyle.Eurusx,
         datetime(2023, 4, 30),
         link="https://huggingface.co/openbmb/Eurux-8x22b-nca",
+    ),
+    LanguageModel(
+        "01-ai/Yi-1.5-6B-Chat",
+        "Yi-1.5-6B-Chat",
+        LMStyle.Yi,
+        datetime(2023, 1, 1),
+        link="https://huggingface.co/01-ai/Yi-1.5-6B-Chat",
+    ),
+    LanguageModel(
+        "01-ai/Yi-1.5-9B-Chat",
+        "Yi-1.5-9B-Chat",
+        LMStyle.Yi,
+        datetime(2023, 1, 1),
+        link="https://huggingface.co/01-ai/Yi-1.5-9B-Chat",        
+    ),
+    LanguageModel(
+        "01-ai/Yi-1.5-34B-Chat",
+        "Yi-1.5-34B-Chat",
+        LMStyle.Yi,
+        datetime(2023, 1, 1),
+        link="https://huggingface.co/01-ai/Yi-1.5-34B-Chat",
     ),
 ]
 
