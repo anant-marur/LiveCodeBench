@@ -18,9 +18,13 @@ class VLLMRunner(BaseRunner):
             model=model_tokenizer_path,
             tokenizer=model_tokenizer_path,
             tensor_parallel_size=args.tensor_parallel_size,
-            # dtype=args.dtype,
+            # Uncommenting this line was a change was made in this upstream commit: https://github.com/LiveCodeBench/LiveCodeBench/commit/4bd0c7d81271a6e0a271d6a1b48d994d3b103b8c#diff-720838caaad9b42bfd42ffe917913f58c04f408af838390bc36ad6dfcf7c6f43
+            # We are adding it here because it fixes bug with CodeLlamaInstruct evals
+            dtype=args.dtype,
             enforce_eager=True,
-            max_model_len=2048,
+            # Commenting out this line was a change made in this upstream commit: 4bd0c7d81271a6e0a271d6a1b48d994d3b103b8c
+            # We are adding it here because it fixes bug with CodeLlamaInstruct evals
+            # max_model_len=4096,
             disable_custom_all_reduce=True,
             enable_prefix_caching=args.enable_prefix_caching,
             trust_remote_code=args.trust_remote_code,
